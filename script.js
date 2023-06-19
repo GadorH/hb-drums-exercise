@@ -1,5 +1,6 @@
-const record = [];
+let record = [];
 let shouldRecord = false;
+let initialRecordTime = 0
 
 function playSound(sound) {
     const audio = new Audio(`./audio/${sound}.wav`);
@@ -9,7 +10,7 @@ function playSound(sound) {
     
         if (shouldRecord) {
             record.push({ track: sound, time: Date.now() });
-            console.log(record);
+            
         }
     
 }
@@ -21,6 +22,9 @@ function initSoundButtons() {
         const button = document.querySelector(`#${sound}`);
 
         button.addEventListener("click", () => {
+            playSound(sound);
+        });
+        button.addEventListener("touchstart", () => {
             playSound(sound);
         });
     }
@@ -68,31 +72,38 @@ function initRecordButton() {
     const recordButton = document.querySelector("#record");
     recordButton.addEventListener("click", () => {
         shouldRecord = true;
+        initialRecordTime = Date.now()
     });
 }
 
 function initPlayButton(){
     const playButton = document.querySelector ("#play");
-    function delay(){
+    function delay(time){
         return new Promise( resolve => {
             setTimeout(()=>{
                 resolve();
 
-            },2000)
+            },time)
 
         });
         
     }
     playButton.addEventListener("click", async() => {
+        shouldRecord = false 
+        
         for  (let sound of record){
-            shouldRecord = false 
-            await delay ()
+            const index = record.indexOf(sound)
+            const delayTime = index===0? sound.time-initialRecordTime: sound.time-record[index-1].time
+            
+            await delay (delayTime)
             playSound(sound.track)
+
 
              
            
         }
         
+        record =[]
         
     });
 }
