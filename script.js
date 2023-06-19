@@ -2,13 +2,16 @@ const record = [];
 let shouldRecord = false;
 
 function playSound(sound) {
-    const audio = new Audio(`/audio/${sound}.wav`);
+    const audio = new Audio(`./audio/${sound}.wav`);
 
     audio.play();
 
-    if (shouldRecord) {
-        record.push(sound);
-    }
+    
+        if (shouldRecord) {
+            record.push({ track: sound, time: Date.now() });
+            console.log(record);
+        }
+    
 }
 
 function initSoundButtons() {
@@ -68,8 +71,40 @@ function initRecordButton() {
     });
 }
 
+function initPlayButton(){
+    const playButton = document.querySelector ("#play");
+    function delay(){
+        return new Promise( resolve => {
+            setTimeout(()=>{
+                resolve();
+
+            },2000)
+
+        });
+        
+    }
+    playButton.addEventListener("click", async() => {
+        for  (let sound of record){
+            shouldRecord = false 
+            await delay ()
+            playSound(sound.track)
+
+             
+           
+        }
+        
+        
+    });
+}
+
+
+
+
 (function init() {
     initSoundButtons();
     initSoundKeys();
     initRecordButton();
+    initPlayButton();
+
 })();
+
