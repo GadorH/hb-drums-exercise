@@ -3,29 +3,85 @@
     <head>
         <meta charset="UTF-8" />
         <meta http-equiv="X-UA-Compatible" content="IE=edge" />
-        <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-        <title>Drum Kit</title>
+        <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=0" />
+        <meta name="apple-mobile-web-app-capable" content="yes" />
+        <meta name="apple-mobile-web-app-status-bar-style" content="black" />
+        <meta name="mobile-web-app-capable" content="yes" />
+
+        <title>Hack A Drum</title>
+
+        <style>
+            @import url("https://fonts.googleapis.com/css2?family=Press+Start+2P&display=swap");
+        </style>
+
+        <link rel="stylesheet" href="style.css" />
+        <script src="./script.js" defer></script>
     </head>
     <body>
+        <header>
+            <img class="logo" src="./images/logo.png" aria-hidden="true" />
+        </header>
         <main>
-            <div>
-                <ul>
-                    <li><button id="crash">CRASH</button></li>
-                    <li><button id="hihat-close">HIHAT-CLOSE</button></li>
-                    <li><button id="hihat-open">HIHAT-OPEN</button></li>
-                    <li><button id="kick">KICK</button></li>
-                    <li><button id="ride">RIDE</button></li>
-                    <li><button id="snare">SNARE</button></li>
-                    <li><button id="tom-high">TOM-HIGH</button></li>
-                    <li><button id="tom-low">TOM-LOW</button></li>
-                    <li><button id="tom-mid">TOM-MID</button></li>
+            <section class="control-bar">
+                <button id="record" class="control-button record-button" aria-label="Record audio"></button>
+                <button id="play" class="control-button play-button" aria-label="Play record"></button>
+                <button id="legend-button" class="control-button legend-button" aria-label="Click to show instructions">
+                    HOW TO PLAY
+                </button>
+            </section>
+            <section class="drum-game-zone">
+                <div>
+                    <ul class="drum-set">
+                        <div class="drum-set__row">
+                            <li>
+                                <button id="hihat-open" aria-label="hihat-open" class="drum-set__button"></button>
+                            </li>
+                            <li>
+                                <button id="tom-high" aria-label="tom-high" class="drum-set__button"></button>
+                            </li>
+                            <li>
+                                <button id="tom-low" aria-label="tom-low" class="drum-set__button"></button>
+                            </li>
+                            <li>
+                                <button id="tom-mid" aria-label="tom-mid" class="drum-set__button"></button>
+                            </li>
+                            <li>
+                                <button id="ride" aria-label="ride" class="drum-set__button"></button>
+                            </li>
+                        </div>
+
+                        <div class="drum-set__row">
+                            <li>
+                                <button id="hihat-close" aria-label="hihat-close" class="drum-set__button"></button>
+                            </li>
+                            <li>
+                                <button id="snare" aria-label="snare" class="drum-set__button"></button>
+                            </li>
+                            <li>
+                                <button id="kick" aria-label="kick" class="drum-set__button"></button>
+                            </li>
+                            <li>
+                                <button id="crash" aria-label="crash" class="drum-set__button"></button>
+                            </li>
+                        </div>
+                    </ul>
+                </div>
+                <ul class="legend-list legend-list--hidden">
+                    <li><img src="images/e-key.png" alt="e-key" />Hihat-open</li>
+                    <li><img src="images/z-key.png" alt="z-key" />Tom-high</li>
+                    <li><img src="images/x-key.png" alt="x-key" />Floor-Tom</li>
+                    <li><img src="images/c-key.png" alt="c-key" />Tom-mid</li>
+                    <li><img src="images/s-key.png" alt="s-key" />Ride</li>
+                    <li><img src="images/w-key.png" alt="w-key" />Hihat-close</li>
+                    <li><img src="images/d-key.png" alt="d-key" />Snare</li>
+                    <li><img src="images/a-key.png" alt="a-key" />Kick</li>
+                    <li><img src="images/q-key.png" alt="q-key" />Crash</li>
                 </ul>
-            </div>
-            <div>
-                <button id="record">RECORD</button>
-                <button id="play">PLAY</button>
-            </div>
+            </section>
+
+            <section class="mobile-advice">
+                <p>Gira el dispositivo para una mejor experiencia</p>
+            </section>
         </main>
-        <script src="./script.js"></script>
     </body>
 </html>

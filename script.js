@@ -3,7 +3,7 @@ let shouldRecord = false;
 let initialRecordTime = 0;
 
 function playSound(sound) {
-    const audio = new Audio(`./audio/${sound}.wav`);
+    const audio = new Audio(`audio/${sound}.wav`);
 
     audio.play();
 
@@ -45,9 +45,22 @@ function initSoundKeys() {
 
 function initRecordButton() {
     const recordButton = document.querySelector("#record");
-    recordButton.addEventListener("click", () => {
-        shouldRecord = true;
-        initialRecordTime = Date.now();
+
+    recordButton.addEventListener("click", (event) => {
+        const playButton = document.querySelector("#play");
+
+        recordButton.classList.toggle("record-button--active");
+
+        shouldRecord = !shouldRecord;
+
+        if (shouldRecord) {
+            record = [];
+            playButton.setAttribute("disabled", "true");
+            initialRecordTime = Date.now();
+        } else {
+            playButton.removeAttribute("disabled");
+            initialRecordTime = 0;
+        }
     });
 }
 
@@ -61,7 +74,10 @@ function initPlayButton() {
         });
     }
     playButton.addEventListener("click", async () => {
-        shouldRecord = false;
+        const recordButton = document.querySelector("#record");
+
+        playButton.classList.toggle("play-button--active");
+        recordButton.setAttribute("disabled", "true");
 
         for (let sound of record) {
             const index = record.indexOf(sound);
@@ -71,7 +87,19 @@ function initPlayButton() {
             playSound(sound.track);
         }
 
-        record = [];
+        recordButton.removeAttribute("disabled");
+        playButton.classList.toggle("play-button--active");
+    });
+}
+
+function initLegendButton() {
+    const button = document.querySelector("#legend-button");
+
+    button.addEventListener("click", () => {
+        const legendList = document.querySelector(".legend-list");
+
+        button.classList.toggle("legend-button--active");
+        legendList.classList.toggle("legend-list--hidden");
     });
 }
 
@@ -80,4 +108,5 @@ function initPlayButton() {
     initSoundKeys();
     initRecordButton();
     initPlayButton();
+    initLegendButton();
 })();
