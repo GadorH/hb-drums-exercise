@@ -1,6 +1,7 @@
 let record = [];
 let shouldRecord = false;
 let initialRecordTime = 0;
+let shouldPlay = true;
 
 function playSound(sound) {
     const audio = new Audio(`audio/${sound}.wav`);
@@ -73,7 +74,13 @@ function initPlayButton() {
             }, time);
         });
     }
+
     playButton.addEventListener("click", async () => {
+        if (!shouldPlay) {
+            return;
+        }
+
+        shouldPlay = false;
         const recordButton = document.querySelector("#record");
 
         playButton.classList.toggle("play-button--active");
@@ -89,6 +96,7 @@ function initPlayButton() {
 
         recordButton.removeAttribute("disabled");
         playButton.classList.toggle("play-button--active");
+        shouldPlay = true;
     });
 }
 
