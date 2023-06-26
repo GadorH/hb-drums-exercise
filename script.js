@@ -19,6 +19,15 @@ function initSoundButtons() {
     for (let sound of soundTracks) {
         const button = document.querySelector(`#${sound}`);
 
+        button.addEventListener(
+            "touchstart",
+            (event) => {
+                event.preventDefault();
+                playSound(sound);
+            },
+            { passive: false }
+        );
+
         button.addEventListener("click", () => {
             playSound(sound);
         });
